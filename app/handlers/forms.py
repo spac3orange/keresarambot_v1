@@ -208,7 +208,7 @@ async def p_declined_save(call: CallbackQuery, state: FSMContext):
     await call.message.answer('Спасибо! Наш менеджер свяжется с вами в ближайшее время.'
                               f'\nПредпросмотр заявки: {form}'
                               f'\nНаш сайт: https://koryosaram.org/\nYoutube канал: https://www.youtube.com/@koryosaraminkorea')
-    adm_text = f'Пользователь {uname} не дал согласия на обработку данных. Номер телефона {data['phone']}'
+    adm_text = f'Пользователь {uname} не дал согласия на обработку данных. Номер телефона {data["phone"]}'
     admin_id = config_aiogram.admin_id[0]
     await aiogram_bot.send_message(int(admin_id), text=adm_text)
     await update_gsheet(data, confirmation='Не согласен')
