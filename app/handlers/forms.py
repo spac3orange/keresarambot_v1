@@ -9,7 +9,7 @@ from app.states import states
 from datetime import datetime
 router = Router()
 
-credentials_json = 'config/my-project-korean-bot-e4662088a05e.json'
+credentials_json = 'app/config/my-project-korean-bot-e4662088a05e.json'
 sheet_name = 'Заявление для вступления в члены АКРК  (Ответы)'
 base_form_url = 'https://docs.google.com/forms/d/1t8twrK8IQ7C-qdSmTcltOVSLK3cPkMU-oQahkZk9wCU/prefill'
 
