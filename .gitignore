@@ -1,0 +1,8 @@
+#ignore env
+.env
+
+#ignore venv
+.venv/
+
+#ignore google sheet key
+config/my-project-korean-bot-e4662088a05e.json
