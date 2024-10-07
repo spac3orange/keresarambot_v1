@@ -48,8 +48,6 @@ async def p_input_id(message: Message, state: FSMContext):
     await state.set_state(states.InputForm.input_id)
 
 
-
-
 @router.message(states.InputForm.input_id)
 async def p_input_bplace(message: Message, state: FSMContext):
     idcard = message.text
@@ -202,7 +200,7 @@ async def p_confirmed_save(call: CallbackQuery, state: FSMContext):
     await call.answer()
     data = await state.get_data()
     form = await generate_prefilled_form_link(base_form_url, data, confirmation='Согласен')
-    await call.message.answer(f'Спасибо!\nПредпросмотр заявки: {form}\nНаш сайт: https://koryosaram.org/\nYoutube канал: https://www.youtube.com/@koryosaraminkorea')
+    await call.message.answer(f'Спасибо!\nПерейдите по ссылке и отправьте заполненную заявку: {form}\nНаш сайт: https://koryosaram.org/\nYoutube канал: https://www.youtube.com/@koryosaraminkorea')
     print(data)
     await update_gsheet(data)
     await state.clear()
@@ -215,7 +213,7 @@ async def p_declined_save(call: CallbackQuery, state: FSMContext):
     uname = call.from_user.username
     form = await generate_prefilled_form_link(base_form_url, data, confirmation='Не согласен')
     await call.message.answer('Спасибо! Наш менеджер свяжется с вами в ближайшее время.'
-                              f'\nПредпросмотр заявки: {form}'
+                              f'\nПерейдите по ссылке и отправьте заполненную заявку: {form}'
                               f'\nНаш сайт: https://koryosaram.org/\nYoutube канал: https://www.youtube.com/@koryosaraminkorea')
     adm_text = f'Пользователь {uname} не дал согласия на обработку данных. Номер телефона {data["phone"]}'
     admin_id = config_aiogram.admin_id[0]
