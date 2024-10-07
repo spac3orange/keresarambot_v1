@@ -7,11 +7,15 @@ from app.config import GoogleSheetsClient, GoogleFormsClient, generate_prefilled
 from app.keyboards import main_kb
 from app.states import states
 from datetime import datetime
+import re
+
 router = Router()
 
 credentials_json = 'app/config/my-project-korean-bot-e4662088a05e.json'
 sheet_name = 'Заявление для вступления в члены АКРК  (Ответы)'
 base_form_url = 'https://docs.google.com/forms/d/1t8twrK8IQ7C-qdSmTcltOVSLK3cPkMU-oQahkZk9wCU/prefill'
+date_pattern = re.compile(r"^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(19|20)\d{2}$")
+
 
 
 async def get_current_time():
@@ -36,9 +40,14 @@ async def p_input_date(message: Message, state: FSMContext):
 @router.message(states.InputForm.input_date)
 async def p_input_id(message: Message, state: FSMContext):
     date = message.text
+    if not date_pattern.match(date):
+        await message.answer('Неверный формат даты. Пожалуйста, введите дату в формате ДД.ММ.ГГГГ (например, 02.08.1990).')
+        return
     await state.update_data(bdate=date)
     await message.answer('Номер айдикарты:')
     await state.set_state(states.InputForm.input_id)
+
+
 
 
 @router.message(states.InputForm.input_id)
